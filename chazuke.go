@@ -1,16 +1,16 @@
 package chazuke
 
-type Chazuke struct {
+type JSONContainer struct {
 }
 
-func (*Chazuke) Get(key string) *Chazuke {
-	return &Chazuke{}
+func (*JSONContainer) Get(key string) *JSONContainer {
+	return &JSONContainer{}
 }
 
-func (*Chazuke) Value() (string, error) {
+func (*JSONContainer) Value() (string, error) {
 	return "example", nil
 }
 
-func New(json string) *Chazuke {
-	return &Chazuke{}
+func New(json string) *JSONContainer {
+	return &JSONContainer{}
 }

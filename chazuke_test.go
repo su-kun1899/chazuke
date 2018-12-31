@@ -6,7 +6,7 @@ import (
 	"github.com/su-kun1899/chazuke"
 )
 
-func TestChazuke_Value(t *testing.T) {
+func TestJSONContainer_Value(t *testing.T) {
 	json := `
 		{
 		  "title": "example",
@@ -20,7 +20,7 @@ func TestChazuke_Value(t *testing.T) {
 
 	tests := []struct {
 		name    string
-		cz      *chazuke.Chazuke
+		cz      *chazuke.JSONContainer
 		want    string
 		wantErr bool
 	}{
@@ -35,11 +35,11 @@ func TestChazuke_Value(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := tt.cz.Value()
 			if (err != nil) != tt.wantErr {
-				t.Errorf("Chazuke.Value() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("JSONContainer.Value() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if got != tt.want {
-				t.Errorf("Chazuke.Value() = %v, want %v", got, tt.want)
+				t.Errorf("JSONContainer.Value() = %v, want %v", got, tt.want)
 			}
 		})
 	}
