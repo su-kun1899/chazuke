@@ -21,26 +21,31 @@ func TestJSONContainer_Value(t *testing.T) {
 
 	tests := []struct {
 		name    string
-		cz      *chazuke.JSONContainer
+		key     string
 		want    string
 		wantErr bool
 	}{
 		{
 			name:    "Get title value",
-			cz:      chazuke.New(jsonVal).Get("title"),
+			key:     "title",
 			want:    "example",
 			wantErr: false,
 		},
 		{
 			name:    "Get description value",
-			cz:      chazuke.New(jsonVal).Get("description"),
+			key:     "description",
 			want:    "this is example.",
 			wantErr: false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := tt.cz.Value()
+			container, err := chazuke.New(jsonVal)
+			if err != nil {
+				t.Fatal("unexpected error:", err)
+			}
+
+			got, err := container.Get(tt.key).Value()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("JSONContainer.Value() error = %v, wantErr %v", err, tt.wantErr)
 				return

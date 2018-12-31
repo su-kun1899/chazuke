@@ -23,16 +23,15 @@ func (jc *JSONContainer) Value() (string, error) {
 	return jc.values.(string), nil
 }
 
-func New(jsonVal string) *JSONContainer {
+func New(jsonVal string) (*JSONContainer, error) {
 	var buf bytes.Buffer
 	buf.Write([]byte(jsonVal))
 	dec := json.NewDecoder(&buf)
 
 	var values interface{}
 	if err := dec.Decode(&values); err != nil {
-		// TODO errを戻り値にする
-		panic(err)
+		return nil, err
 	}
 
-	return &JSONContainer{values: values}
+	return &JSONContainer{values: values}, nil
 }
