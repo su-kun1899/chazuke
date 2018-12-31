@@ -1,11 +1,12 @@
 package chazuke_test
 
 import (
-	"github.com/su-kun1899/chazuke"
 	"testing"
+
+	"github.com/su-kun1899/chazuke"
 )
 
-func TestValue(t *testing.T) {
+func TestChazuke_Value(t *testing.T) {
 	json := `
 		{
 		  "title": "example",
@@ -17,15 +18,29 @@ func TestValue(t *testing.T) {
 		}
 	`
 
-	got, err := chazuke.New(json).Get("title").Value()
-	if err != nil {
-		t.Fatal("unexpected error:", err)
-		return
+	tests := []struct {
+		name    string
+		cz      *chazuke.Chazuke
+		want    string
+		wantErr bool
+	}{
+		{
+			name:    "Get title value",
+			cz:      chazuke.New(json).Get("title"),
+			want:    "example",
+			wantErr: false,
+		},
 	}
-
-	want := "example"
-	if got != want {
-		t.Errorf("chazuke.Value() = %v, want %v", got, want)
-		return
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := tt.cz.Value()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Chazuke.Value() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("Chazuke.Value() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }
