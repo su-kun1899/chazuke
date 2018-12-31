@@ -7,9 +7,10 @@ import (
 )
 
 func TestJSONContainer_Value(t *testing.T) {
-	json := `
+	jsonVal := `
 		{
 		  "title": "example",
+		  "description": "this is example.",
 		  "friends":[
 		    {"firstName":"Taro", "lastName":"Yamada"}, 
 		    {"firstName":"Jiro", "lastName":"Sato"},
@@ -26,8 +27,14 @@ func TestJSONContainer_Value(t *testing.T) {
 	}{
 		{
 			name:    "Get title value",
-			cz:      chazuke.New(json).Get("title"),
+			cz:      chazuke.New(jsonVal).Get("title"),
 			want:    "example",
+			wantErr: false,
+		},
+		{
+			name:    "Get description value",
+			cz:      chazuke.New(jsonVal).Get("description"),
+			want:    "this is example.",
 			wantErr: false,
 		},
 	}
