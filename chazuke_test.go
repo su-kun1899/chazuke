@@ -82,10 +82,18 @@ func TestJSONContainer_NestedValue(t *testing.T) {
 		wantErr   bool
 	}{
 		{
-			name:      "Get manager values",
+			name:      "Get manager's name value",
 			parentKey: "manager",
 			childKey:  "name",
 			want:      "Ernest Valverde",
+			wantErr:   false,
+		},
+
+		{
+			name:      "Get manager's birthDay value",
+			parentKey: "manager",
+			childKey:  "birthDay",
+			want:      "1964-02-09",
 			wantErr:   false,
 		},
 	}
