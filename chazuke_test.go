@@ -51,7 +51,7 @@ func TestJSONContainer_Value(t *testing.T) {
 				t.Errorf("JSONContainer.Value() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if got != tt.want {
+			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("JSONContainer.Value() = %v, want %v", got, tt.want)
 			}
 		})
