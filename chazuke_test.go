@@ -115,3 +115,72 @@ func TestJSONContainer_NestedValue(t *testing.T) {
 		})
 	}
 }
+
+func TestJSONContainer_Array(t *testing.T) {
+	jsonVal := `
+		{
+			"team": "FC Barcelona",
+			"manager": {
+				"name": "Ernest Valverde",
+				"birthDay": "1964-02-09"
+			},
+			"players":[
+        		{"name":"Messi", "position":"Forward"}, 
+        		{"name":"Coutinho", "position":"Midfielder"},
+        		{"name":"Pique", "position":"Defender"}
+		  	]
+		}
+	`
+
+	tests := []struct {
+		name     string
+		arrayKey string
+		key      string
+		want     []string
+		wantErr  bool
+	}{
+		{
+			name:     "Get players' name",
+			arrayKey: "players",
+			key:      "name",
+			want:     []string{"Messi", "Coutinho", "Pique"},
+			wantErr:  false,
+		},
+		{
+			name:     "Get players' position",
+			arrayKey: "players",
+			key:      "position",
+			want:     []string{"Forward", "Midfielder", "Defender"},
+			wantErr:  false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			container, err := chazuke.New(jsonVal)
+			if err != nil {
+				t.Fatal("unexpected error:", err)
+			}
+
+			got, err := container.Get(tt.arrayKey).Array()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("JSONContainer.Array() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+
+			if len(got) != len(tt.want) {
+				t.Errorf("len(JSONContainer.Array()) = %v, want %v", len(got), len(tt.want))
+			}
+
+			for i, jc := range got {
+				v, err := jc.Get(tt.key).Value()
+				if err != nil {
+					t.Fatal("unexpected error:", err)
+				}
+
+				if !reflect.DeepEqual(v, tt.want[i]) {
+					t.Errorf("JSONContainer.Value() = %v, want %v", v, tt.want[i])
+				}
+			}
+		})
+	}
+}

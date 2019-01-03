@@ -22,6 +22,20 @@ func (jc *JSONContainer) Get(key string) *JSONContainer {
 func (jc *JSONContainer) Value() (string, error) {
 	return jc.values.(string), nil
 }
+func (jc *JSONContainer) Array() ([]*JSONContainer, error) {
+	values, ok := jc.values.([]interface{})
+	if !ok {
+		// TODO errを管理する
+		panic("Arrayじゃない")
+	}
+
+	containers := make([]*JSONContainer, len(values))
+	for i, v := range values {
+		containers[i] = &JSONContainer{values: v}
+	}
+
+	return containers, nil
+}
 
 func New(jsonVal string) (*JSONContainer, error) {
 	var buf bytes.Buffer
