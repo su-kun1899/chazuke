@@ -20,7 +20,13 @@ func (jc *JSONContainer) Get(key string) *JSONContainer {
 }
 
 func (jc *JSONContainer) Value() (string, error) {
-	return jc.values.(string), nil
+	s, ok := jc.values.(string)
+	if !ok {
+		// TODO errを管理する
+		panic("stringじゃない")
+	}
+
+	return s, nil
 }
 func (jc *JSONContainer) Array() ([]*JSONContainer, error) {
 	values, ok := jc.values.([]interface{})
