@@ -119,6 +119,61 @@ func TestJSONContainer_NestedValue(t *testing.T) {
 func TestJSONContainer_Array(t *testing.T) {
 	jsonVal := `
 		{
+			"cars":[
+        		"FIAT 500",
+        		"RENAULT KANGOO",
+        		"MINI CROSSOVER"
+		  	]
+		}
+	`
+
+	tests := []struct {
+		name     string
+		arrayKey string
+		want     []string
+		wantErr  bool
+	}{
+		{
+			name:     "Get cars",
+			arrayKey: "cars",
+			want:     []string{"FIAT 500", "RENAULT KANGOO", "MINI CROSSOVER"},
+			wantErr:  false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			container, err := chazuke.New(jsonVal)
+			if err != nil {
+				t.Fatal("unexpected error:", err)
+			}
+
+			got, err := container.Get(tt.arrayKey).Array()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("JSONContainer.Array() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+
+			if len(got) != len(tt.want) {
+				t.Errorf("len(JSONContainer.Array()) = %v, want %v", len(got), len(tt.want))
+			}
+
+			for i, jc := range got {
+				v, err := jc.Value()
+				if err != nil {
+					t.Fatal("unexpected error:", err)
+				}
+
+				if !reflect.DeepEqual(v, tt.want[i]) {
+					t.Errorf("JSONContainer.Value() = %v, want %v", v, tt.want[i])
+				}
+			}
+		})
+	}
+}
+
+func TestJSONContainer_Array_NestedValue(t *testing.T) {
+	jsonVal := `
+		{
 			"team": "FC Barcelona",
 			"manager": {
 				"name": "Ernest Valverde",
