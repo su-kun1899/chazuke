@@ -28,6 +28,7 @@ func (jc *JSONContainer) Value() (string, error) {
 
 	return s, nil
 }
+
 func (jc *JSONContainer) Array() ([]*JSONContainer, error) {
 	values, ok := jc.values.([]interface{})
 	if !ok {
@@ -41,6 +42,15 @@ func (jc *JSONContainer) Array() ([]*JSONContainer, error) {
 	}
 
 	return containers, nil
+}
+
+func (jc *JSONContainer) JSON() (string, error) {
+	b, err := json.Marshal(jc.values)
+	if err != nil {
+		return "", err
+	}
+
+	return string(b), nil
 }
 
 func New(jsonVal string) (*JSONContainer, error) {

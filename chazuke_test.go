@@ -239,3 +239,62 @@ func TestJSONContainer_Array_NestedValue(t *testing.T) {
 		})
 	}
 }
+
+func TestJSONContainer_JSON(t *testing.T) {
+	jsonVal := `
+		{
+			"team": "FC Barcelona",
+			"manager": {
+				"name": "Ernest Valverde",
+				"birthDay": "1964-02-09"
+			},
+			"players":[
+        		{"name":"Messi", "position":"Forward"}, 
+        		{"name":"Coutinho", "position":"Midfielder"},
+        		{"name":"Pique", "position":"Defender"}
+		  	]
+		}
+	`
+
+	tests := []struct {
+		name    string
+		key     string
+		want    string
+		wantErr bool
+	}{
+		{
+			name:    "Get manager's JSON",
+			key:     "manager",
+			want:    `{"name": "Ernest Valverde","birthDay": "1964-02-09"}`,
+			wantErr: false,
+		},
+		// TODO 配列だとどうなる？
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			container, err := chazuke.New(jsonVal)
+			if err != nil {
+				t.Fatal("unexpected error:", err)
+			}
+
+			got, err := container.Get(tt.key).JSON()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("JSONContainer.Value() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+
+			wantV, err := chazuke.New(tt.want)
+			if err != nil {
+				t.Fatal("unexpected error:", err)
+			}
+			gotV, err := chazuke.New(got)
+			if err != nil {
+				t.Fatal("unexpected error:", err)
+			}
+
+			if !reflect.DeepEqual(gotV, wantV) {
+				t.Errorf("JSONContainer.JSON() = %v, want %v", gotV, wantV)
+			}
+		})
+	}
+}
