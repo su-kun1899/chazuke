@@ -268,7 +268,16 @@ func TestJSONContainer_JSON(t *testing.T) {
 			want:    `{"name": "Ernest Valverde","birthDay": "1964-02-09"}`,
 			wantErr: false,
 		},
-		// TODO 配列だとどうなる？
+		{
+			name: "Get players' JSON",
+			key:  "players",
+			want: `[
+        		{"name":"Messi", "position":"Forward"}, 
+        		{"name":"Coutinho", "position":"Midfielder"},
+        		{"name":"Pique", "position":"Defender"}
+		  	]`,
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
