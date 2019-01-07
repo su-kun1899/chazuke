@@ -7,7 +7,7 @@ import (
 	"github.com/su-kun1899/chazuke"
 )
 
-func TestJSONContainer_Value(t *testing.T) {
+func TestContainer_Value(t *testing.T) {
 	jsonVal := `
 		{
 		  "title": "example",
@@ -48,17 +48,17 @@ func TestJSONContainer_Value(t *testing.T) {
 
 			got, err := container.Get(tt.key).Value()
 			if (err != nil) != tt.wantErr {
-				t.Errorf("JSONContainer.Value() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("Container.Value() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("JSONContainer.Value() = %v, want %v", got, tt.want)
+				t.Errorf("Container.Value() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestJSONContainer_NestedValue(t *testing.T) {
+func TestContainer_NestedValue(t *testing.T) {
 	jsonVal := `
 		{
 			"team": "FC Barcelona",
@@ -106,17 +106,17 @@ func TestJSONContainer_NestedValue(t *testing.T) {
 
 			got, err := container.Get(tt.parentKey).Get(tt.childKey).Value()
 			if (err != nil) != tt.wantErr {
-				t.Errorf("JSONContainer.Value() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("Container.Value() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("JSONContainer.Value() = %v, want %v", got, tt.want)
+				t.Errorf("Container.Value() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestJSONContainer_Array(t *testing.T) {
+func TestContainer_Array(t *testing.T) {
 	jsonVal := `
 		{
 			"cars":[
@@ -149,12 +149,12 @@ func TestJSONContainer_Array(t *testing.T) {
 
 			got, err := container.Get(tt.arrayKey).Array()
 			if (err != nil) != tt.wantErr {
-				t.Errorf("JSONContainer.Array() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("Container.Array() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 
 			if len(got) != len(tt.want) {
-				t.Errorf("len(JSONContainer.Array()) = %v, want %v", len(got), len(tt.want))
+				t.Errorf("len(Container.Array()) = %v, want %v", len(got), len(tt.want))
 			}
 
 			for i, jc := range got {
@@ -164,14 +164,14 @@ func TestJSONContainer_Array(t *testing.T) {
 				}
 
 				if !reflect.DeepEqual(v, tt.want[i]) {
-					t.Errorf("JSONContainer.Value() = %v, want %v", v, tt.want[i])
+					t.Errorf("Container.Value() = %v, want %v", v, tt.want[i])
 				}
 			}
 		})
 	}
 }
 
-func TestJSONContainer_Array_NestedValue(t *testing.T) {
+func TestContainer_Array_NestedValue(t *testing.T) {
 	jsonVal := `
 		{
 			"team": "FC Barcelona",
@@ -218,12 +218,12 @@ func TestJSONContainer_Array_NestedValue(t *testing.T) {
 
 			got, err := container.Get(tt.arrayKey).Array()
 			if (err != nil) != tt.wantErr {
-				t.Errorf("JSONContainer.Array() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("Container.Array() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 
 			if len(got) != len(tt.want) {
-				t.Errorf("len(JSONContainer.Array()) = %v, want %v", len(got), len(tt.want))
+				t.Errorf("len(Container.Array()) = %v, want %v", len(got), len(tt.want))
 			}
 
 			for i, jc := range got {
@@ -233,14 +233,14 @@ func TestJSONContainer_Array_NestedValue(t *testing.T) {
 				}
 
 				if !reflect.DeepEqual(v, tt.want[i]) {
-					t.Errorf("JSONContainer.Value() = %v, want %v", v, tt.want[i])
+					t.Errorf("Container.Value() = %v, want %v", v, tt.want[i])
 				}
 			}
 		})
 	}
 }
 
-func TestJSONContainer_JSON(t *testing.T) {
+func TestContainer_JSON(t *testing.T) {
 	jsonVal := `
 		{
 			"team": "FC Barcelona",
@@ -288,7 +288,7 @@ func TestJSONContainer_JSON(t *testing.T) {
 
 			got, err := container.Get(tt.key).JSON()
 			if (err != nil) != tt.wantErr {
-				t.Errorf("JSONContainer.Value() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("Container.Value() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 
@@ -302,7 +302,7 @@ func TestJSONContainer_JSON(t *testing.T) {
 			}
 
 			if !reflect.DeepEqual(gotV, wantV) {
-				t.Errorf("JSONContainer.JSON() = %v, want %v", gotV, wantV)
+				t.Errorf("Container.JSON() = %v, want %v", gotV, wantV)
 			}
 		})
 	}

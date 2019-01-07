@@ -5,22 +5,22 @@ import (
 	"encoding/json"
 )
 
-type JSONContainer struct {
+type Container struct {
 	values interface{}
 }
 
-func (jc *JSONContainer) Get(key string) *JSONContainer {
-	values, ok := jc.values.(map[string]interface{})
+func (container *Container) Get(key string) *Container {
+	values, ok := container.values.(map[string]interface{})
 	if !ok {
 		// TODO errを管理する
 		panic("mapじゃない")
 	}
 
-	return &JSONContainer{values: values[key]}
+	return &Container{values: values[key]}
 }
 
-func (jc *JSONContainer) Value() (string, error) {
-	s, ok := jc.values.(string)
+func (container *Container) Value() (string, error) {
+	s, ok := container.values.(string)
 	if !ok {
 		// TODO errを管理する
 		panic("stringじゃない")
@@ -29,23 +29,23 @@ func (jc *JSONContainer) Value() (string, error) {
 	return s, nil
 }
 
-func (jc *JSONContainer) Array() ([]*JSONContainer, error) {
-	values, ok := jc.values.([]interface{})
+func (container *Container) Array() ([]*Container, error) {
+	values, ok := container.values.([]interface{})
 	if !ok {
 		// TODO errを管理する
 		panic("Arrayじゃない")
 	}
 
-	containers := make([]*JSONContainer, len(values))
+	containers := make([]*Container, len(values))
 	for i, v := range values {
-		containers[i] = &JSONContainer{values: v}
+		containers[i] = &Container{values: v}
 	}
 
 	return containers, nil
 }
 
-func (jc *JSONContainer) JSON() (string, error) {
-	b, err := json.Marshal(jc.values)
+func (container *Container) JSON() (string, error) {
+	b, err := json.Marshal(container.values)
 	if err != nil {
 		return "", err
 	}
@@ -53,7 +53,7 @@ func (jc *JSONContainer) JSON() (string, error) {
 	return string(b), nil
 }
 
-func New(jsonVal string) (*JSONContainer, error) {
+func New(jsonVal string) (*Container, error) {
 	var buf bytes.Buffer
 	buf.Write([]byte(jsonVal))
 	dec := json.NewDecoder(&buf)
@@ -63,5 +63,5 @@ func New(jsonVal string) (*JSONContainer, error) {
 		return nil, err
 	}
 
-	return &JSONContainer{values: values}, nil
+	return &Container{values: values}, nil
 }
