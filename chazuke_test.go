@@ -307,3 +307,34 @@ func TestContainer_JSON(t *testing.T) {
 		})
 	}
 }
+
+func TestNew(t *testing.T) {
+	type args struct {
+		jsonVal string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    *chazuke.Container
+		wantErr bool
+	}{
+		{
+			name:    "Illegal JSON",
+			args:    args{jsonVal: "This is Illegal Json."},
+			want:    nil,
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := chazuke.New(tt.args.jsonVal)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("New() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
