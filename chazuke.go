@@ -23,7 +23,7 @@ func (container *Container) Get(key string) *Container {
 func (container *Container) Value() (string, error) {
 	s, ok := container.values.(string)
 	if !ok {
-		return "", fmt.Errorf("container has illegal value = %v", container.values)
+		return "", fmt.Errorf("Container has illegal value = %v.\nUse chazuke.New()", container.values)
 	}
 
 	return s, nil
