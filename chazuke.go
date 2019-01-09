@@ -3,6 +3,7 @@ package chazuke
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 type Container struct {
@@ -22,8 +23,7 @@ func (container *Container) Get(key string) *Container {
 func (container *Container) Value() (string, error) {
 	s, ok := container.values.(string)
 	if !ok {
-		// TODO errを管理する
-		panic("stringじゃない")
+		return "", fmt.Errorf("container has illegal value = %v", container.values)
 	}
 
 	return s, nil
