@@ -330,7 +330,7 @@ func TestNew(t *testing.T) {
 	}{
 		{
 			name:    "Illegal JSON",
-			args:    args{jsonVal: "This is Illegal Json."},
+			args:    args{jsonVal: "This is Illegal JSON."},
 			want:    nil,
 			wantErr: true,
 		},

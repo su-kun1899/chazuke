@@ -6,6 +6,13 @@ import (
 	"fmt"
 )
 
+type Container interface {
+	Get(key string) Container
+	Value() (string, error)
+	Array() ([]Container, error)
+	JSON() (string, error)
+}
+
 // TODO interfaceにする
 type JsonContainer struct {
 	values interface{}
