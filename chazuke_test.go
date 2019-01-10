@@ -59,7 +59,7 @@ func TestContainer_Value(t *testing.T) {
 }
 
 func TestContainer_Value_WithoutNew(t *testing.T) {
-	container := &chazuke.Container{}
+	container := &chazuke.JsonContainer{}
 
 	got, err := container.Value()
 	if !(got == "" && err != nil) {
@@ -325,7 +325,7 @@ func TestNew(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		want    *chazuke.Container
+		want    *chazuke.JsonContainer
 		wantErr bool
 	}{
 		{
