@@ -13,12 +13,11 @@ type Container interface {
 	JSON() (string, error)
 }
 
-// TODO interfaceにする
 type JsonContainer struct {
 	values interface{}
 }
 
-func (container *JsonContainer) Get(key string) *JsonContainer {
+func (container *JsonContainer) Get(key string) Container {
 	values, ok := container.values.(map[string]interface{})
 	if !ok {
 		// TODO errを管理する
@@ -37,14 +36,14 @@ func (container *JsonContainer) Value() (string, error) {
 	return s, nil
 }
 
-func (container *JsonContainer) Array() ([]*JsonContainer, error) {
+func (container *JsonContainer) Array() ([]Container, error) {
 	values, ok := container.values.([]interface{})
 	if !ok {
 		// TODO errを管理する
 		panic("Arrayじゃない")
 	}
 
-	containers := make([]*JsonContainer, len(values))
+	containers := make([]Container, len(values))
 	for i, v := range values {
 		containers[i] = &JsonContainer{values: v}
 	}
@@ -61,7 +60,7 @@ func (container *JsonContainer) JSON() (string, error) {
 	return string(b), nil
 }
 
-func New(jsonVal string) (*JsonContainer, error) {
+func New(jsonVal string) (Container, error) {
 	var buf bytes.Buffer
 	buf.Write([]byte(jsonVal))
 	dec := json.NewDecoder(&buf)

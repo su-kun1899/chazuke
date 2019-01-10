@@ -325,7 +325,7 @@ func TestNew(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		want    *chazuke.JsonContainer
+		want    chazuke.Container
 		wantErr bool
 	}{
 		{
