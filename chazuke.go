@@ -13,30 +13,31 @@ type Container interface {
 	JSON() (string, error)
 }
 
-type JsonContainer struct {
+type jsonContainer struct {
 	values interface{}
 }
 
-func (container *JsonContainer) Get(key string) Container {
+func (container *jsonContainer) Get(key string) Container {
 	values, ok := container.values.(map[string]interface{})
 	if !ok {
 		// TODO errを管理する
 		panic("mapじゃない")
 	}
 
-	return &JsonContainer{values: values[key]}
+	return &jsonContainer{values: values[key]}
 }
 
-func (container *JsonContainer) Value() (string, error) {
+func (container *jsonContainer) Value() (string, error) {
 	s, ok := container.values.(string)
 	if !ok {
+		// TODO ここ通れるケースあるかな？
 		return "", fmt.Errorf("container has illegal value = %v", container.values)
 	}
 
 	return s, nil
 }
 
-func (container *JsonContainer) Array() ([]Container, error) {
+func (container *jsonContainer) Array() ([]Container, error) {
 	values, ok := container.values.([]interface{})
 	if !ok {
 		// TODO errを管理する
@@ -45,13 +46,13 @@ func (container *JsonContainer) Array() ([]Container, error) {
 
 	containers := make([]Container, len(values))
 	for i, v := range values {
-		containers[i] = &JsonContainer{values: v}
+		containers[i] = &jsonContainer{values: v}
 	}
 
 	return containers, nil
 }
 
-func (container *JsonContainer) JSON() (string, error) {
+func (container *jsonContainer) JSON() (string, error) {
 	b, err := json.Marshal(container.values)
 	if err != nil {
 		return "", err
@@ -70,5 +71,5 @@ func New(jsonVal string) (Container, error) {
 		return nil, err
 	}
 
-	return &JsonContainer{values: values}, nil
+	return &jsonContainer{values: values}, nil
 }

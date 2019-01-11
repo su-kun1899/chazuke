@@ -58,16 +58,6 @@ func TestContainer_Value(t *testing.T) {
 	}
 }
 
-func TestContainer_Value_WithoutNew(t *testing.T) {
-	container := &chazuke.JsonContainer{}
-
-	got, err := container.Value()
-	if !(got == "" && err != nil) {
-		t.Errorf("Container.Value() got = %v, error = %v", got, err)
-		return
-	}
-}
-
 func TestContainer_NestedValue(t *testing.T) {
 	jsonVal := `
 		{
