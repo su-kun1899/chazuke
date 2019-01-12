@@ -47,6 +47,7 @@ func TestContainer_Value(t *testing.T) {
 			}
 
 			got, err := container.Get(tt.key).Value()
+			// TODO errは別ケースなので、常にテストはfailでよさそう
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Container.Value() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -95,6 +96,13 @@ func TestContainer_NestedValue(t *testing.T) {
 			childKey:  "birthDay",
 			want:      "1964-02-09",
 			wantErr:   false,
+		},
+		{
+			name:      "Illegal key",
+			parentKey: "foo",
+			childKey:  "bar",
+			want:      "",
+			wantErr:   true,
 		},
 	}
 	for _, tt := range tests {

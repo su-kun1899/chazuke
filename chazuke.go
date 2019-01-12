@@ -20,8 +20,8 @@ type jsonContainer struct {
 func (container *jsonContainer) Get(key string) Container {
 	values, ok := container.values.(map[string]interface{})
 	if !ok {
-		// TODO errを管理する
-		panic("mapじゃない")
+		// TODO errの中身が分かるようにしたい
+		return &jsonContainer{values: nil}
 	}
 
 	return &jsonContainer{values: values[key]}
