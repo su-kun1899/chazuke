@@ -17,24 +17,21 @@ type jsonContainer struct {
 	values interface{}
 }
 
+type errContainer struct {
+	err error
+}
+
 func (container *jsonContainer) Get(key string) Container {
 	values, ok := container.values.(map[string]interface{})
 	if !ok {
-		// TODO errの中身が分かるようにしたい
-		return &jsonContainer{values: nil}
+		return &errContainer{err: fmt.Errorf("json doesn't have key = %v", key)}
 	}
 
 	return &jsonContainer{values: values[key]}
 }
 
 func (container *jsonContainer) Value() (string, error) {
-	s, ok := container.values.(string)
-	if !ok {
-		// TODO ここ通れるケースあるかな？
-		return "", fmt.Errorf("container has illegal value = %v", container.values)
-	}
-
-	return s, nil
+	return container.values.(string), nil
 }
 
 func (container *jsonContainer) Array() ([]Container, error) {
@@ -59,6 +56,22 @@ func (container *jsonContainer) JSON() (string, error) {
 	}
 
 	return string(b), nil
+}
+
+func (*errContainer) Get(key string) Container {
+	panic("implement me")
+}
+
+func (container *errContainer) Value() (string, error) {
+	return "", container.err
+}
+
+func (*errContainer) Array() ([]Container, error) {
+	panic("implement me")
+}
+
+func (*errContainer) JSON() (string, error) {
+	panic("implement me")
 }
 
 func New(jsonVal string) (Container, error) {
