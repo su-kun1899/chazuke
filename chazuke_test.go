@@ -98,9 +98,16 @@ func TestContainer_NestedValue(t *testing.T) {
 			wantErr:   false,
 		},
 		{
-			name:      "Illegal key",
+			name:      "Illegal parent key",
 			parentKey: "foo",
 			childKey:  "bar",
+			want:      "",
+			wantErr:   true,
+		},
+		{
+			name:      "Illegal child key",
+			parentKey: "team",
+			childKey:  "baz",
 			want:      "",
 			wantErr:   true,
 		},

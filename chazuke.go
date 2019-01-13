@@ -23,7 +23,7 @@ type errContainer struct {
 
 func (container *jsonContainer) Get(key string) Container {
 	values, ok := container.values.(map[string]interface{})
-	if !ok {
+	if !ok || values[key] == nil {
 		return &errContainer{err: fmt.Errorf("json doesn't have key = %v", key)}
 	}
 
@@ -58,8 +58,8 @@ func (container *jsonContainer) JSON() (string, error) {
 	return string(b), nil
 }
 
-func (*errContainer) Get(key string) Container {
-	panic("implement me")
+func (container *errContainer) Get(key string) Container {
+	return container
 }
 
 func (container *errContainer) Value() (string, error) {
