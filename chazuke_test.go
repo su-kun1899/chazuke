@@ -133,6 +133,7 @@ func TestContainer_NestedValue(t *testing.T) {
 func TestContainer_Array(t *testing.T) {
 	jsonVal := `
 		{
+			"description": "this is example.",
 			"cars":[
         		"FIAT 500",
         		"RENAULT KANGOO",
@@ -152,6 +153,18 @@ func TestContainer_Array(t *testing.T) {
 			arrayKey: "cars",
 			want:     []string{"FIAT 500", "RENAULT KANGOO", "MINI CROSSOVER"},
 			wantErr:  false,
+		},
+		{
+			name:     "Not array value",
+			arrayKey: "manager",
+			want:     nil,
+			wantErr:  true,
+		},
+		{
+			name:     "Illegal key",
+			arrayKey: "foo",
+			want:     nil,
+			wantErr:  true,
 		},
 	}
 	for _, tt := range tests {
@@ -204,37 +217,23 @@ func TestContainer_Array_NestedValue(t *testing.T) {
 	tests := []struct {
 		name     string
 		arrayKey string
-		key      string
+		valueKey string
 		want     []string
 		wantErr  bool
 	}{
 		{
 			name:     "Get players' name",
 			arrayKey: "players",
-			key:      "name",
+			valueKey: "name",
 			want:     []string{"Messi", "Coutinho", "Pique"},
 			wantErr:  false,
 		},
 		{
 			name:     "Get players' position",
 			arrayKey: "players",
-			key:      "position",
+			valueKey: "position",
 			want:     []string{"Forward", "Midfielder", "Defender"},
 			wantErr:  false,
-		},
-		{
-			name:     "Not array value",
-			arrayKey: "manager",
-			key:      "",
-			want:     nil,
-			wantErr:  true,
-		},
-		{
-			name:     "Illegal key",
-			arrayKey: "foo",
-			key:      "",
-			want:     nil,
-			wantErr:  true,
 		},
 	}
 	for _, tt := range tests {
@@ -255,7 +254,7 @@ func TestContainer_Array_NestedValue(t *testing.T) {
 			}
 
 			for i, jc := range got {
-				v, err := jc.Get(tt.key).Value()
+				v, err := jc.Get(tt.valueKey).Value()
 				if err != nil {
 					t.Fatal("unexpected error:", err)
 				}
