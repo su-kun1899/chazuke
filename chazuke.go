@@ -37,8 +37,7 @@ func (container *jsonContainer) Value() (string, error) {
 func (container *jsonContainer) Array() ([]Container, error) {
 	values, ok := container.values.([]interface{})
 	if !ok {
-		// TODO errを管理する
-		panic("Arrayじゃない")
+		return nil, fmt.Errorf("value is not array")
 	}
 
 	containers := make([]Container, len(values))
