@@ -47,7 +47,6 @@ func TestContainer_Value(t *testing.T) {
 			}
 
 			got, err := container.Get(tt.key).Value()
-			// TODO errは別ケースなので、常にテストはfailでよさそう
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Container.Value() error = %v, wantErr %v", err, tt.wantErr)
 				return
