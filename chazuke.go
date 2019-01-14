@@ -65,8 +65,8 @@ func (container *errContainer) Value() (string, error) {
 	return "", container.err
 }
 
-func (*errContainer) Array() ([]Container, error) {
-	panic("implement me")
+func (container *errContainer) Array() ([]Container, error) {
+	return nil, container.err
 }
 
 func (*errContainer) JSON() (string, error) {
