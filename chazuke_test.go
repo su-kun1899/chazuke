@@ -306,10 +306,16 @@ func TestContainer_JSON(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "Get team's JSON",
-			key:  "team",
-			want: `"FC Barcelona"`,
+			name:    "Get team's JSON",
+			key:     "team",
+			want:    `"FC Barcelona"`,
 			wantErr: false,
+		},
+		{
+			name:    "Illegal key",
+			key:     "foo",
+			want:    "",
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
