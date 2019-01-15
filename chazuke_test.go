@@ -330,6 +330,9 @@ func TestContainer_JSON(t *testing.T) {
 				t.Errorf("Container.Value() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
+			if tt.wantErr {
+				return
+			}
 
 			wantV, err := chazuke.New(tt.want)
 			if err != nil {
