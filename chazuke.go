@@ -51,6 +51,7 @@ func (container *jsonContainer) Array() ([]Container, error) {
 func (container *jsonContainer) JSON() (string, error) {
 	b, err := json.Marshal(container.values)
 	if err != nil {
+		// untested
 		return "", err
 	}
 
