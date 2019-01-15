@@ -10,6 +10,10 @@ chazuke is a tiny Go library that provides some utilities for JSON.
 $ go get github.com/su-kun1899/chazuke
 ```
 
+## License
+
+MIT
+
 ## Author
 
 Koji Sudo (a.k.a su-kun1899)
