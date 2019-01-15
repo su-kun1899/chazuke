@@ -16,13 +16,13 @@ $ go get github.com/su-kun1899/chazuke
 
 ```go
 jsonVal := `
-		{
-			"team": "FC Barcelona",
-			"manager": {
-				"name": "Ernest Valverde",
-				"birthDay": "1964-02-09"
-			}
-		}
+{
+    "team": "FC Barcelona",
+    "manager": {
+        "name": "Ernest Valverde",
+        "birthDay": "1964-02-09"
+    }
+}
 `
 
 container, _ := chazuke.New(jsonVal)
