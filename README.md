@@ -39,11 +39,11 @@ fmt.Println(birthDay) // Should be "1964-02-09"
 ```go
 jsonVal := `
 {
-	"players":[
-		{"name":"Messi", "position":"Forward"},
-		{"name":"Coutinho", "position":"Midfielder"},
-		{"name":"Pique", "position":"Defender"}
-	]
+    "players":[
+        {"name":"Messi", "position":"Forward"},
+        {"name":"Coutinho", "position":"Midfielder"},
+        {"name":"Pique", "position":"Defender"}
+    ]
 }
 `
 
@@ -61,7 +61,7 @@ for _, p := range players {
 ```go
 jsonVal := `
 {
-	"captain": {
+    "captain": {
         "name":"Messi", 
         "position":"Forward"
     }
