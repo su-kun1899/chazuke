@@ -34,6 +34,28 @@ birthDay, _ := container.Get("manager").Get("birthDay").Value()
 fmt.Println(birthDay) // Should be "1964-02-09"
 ```
 
+### With Array Value
+
+```go
+jsonVal := `
+{
+	"players":[
+		{"name":"Messi", "position":"Forward"},
+		{"name":"Coutinho", "position":"Midfielder"},
+		{"name":"Pique", "position":"Defender"}
+	]
+}
+`
+
+container, _ := chazuke.New(jsonVal)
+
+players, _ := container.Get("players").Array()
+for _, p := range players {
+	name, _ := p.Get("name").Value()
+	fmt.Println(name) // Should be each player's name
+}
+```
+
 ## License
 
 MIT
