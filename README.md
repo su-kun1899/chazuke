@@ -56,6 +56,24 @@ for _, p := range players {
 }
 ```
 
+### Partial JSON
+
+```go
+jsonVal := `
+{
+	"captain": {
+        "name":"Messi", 
+        "position":"Forward"
+    }
+}
+`
+
+container, _ := chazuke.New(jsonVal)
+
+j, _ := container.Get("captain").JSON
+fmt.Println(j) // Should be {"name":"Messi","position":"Forward"}
+```
+
 ## License
 
 MIT
