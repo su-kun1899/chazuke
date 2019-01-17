@@ -1,3 +1,5 @@
+// Package chazuke provides some utilities for JSON.
+// It works without Declaration of the struct.
 package chazuke
 
 import (
