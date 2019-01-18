@@ -8,7 +8,7 @@ import (
 	"fmt"
 )
 
-// Container is the interface that wraps some contents.
+// Container is the interface that transfers some contents.
 type Container interface {
 	// Get extracts contents that matches key string.
 	// It returns contents as a Container.
