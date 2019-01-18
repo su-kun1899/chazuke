@@ -8,10 +8,22 @@ import (
 	"fmt"
 )
 
+// Container is the interface that wraps some contents.
 type Container interface {
+	// Get extracts contents that matches key string.
+	// It returns contents as a Container.
 	Get(key string) Container
+
+	// Value takes out contents as string.
+	// If value has something wrong, it returns error.
 	Value() (string, error)
+
+	// Array takes out contents as array of Container.
+	// If value has something wrong, it returns error.
 	Array() ([]Container, error)
+
+	// JSON takes out contents as JSON format string.
+	// If value has something wrong, it returns error.
 	JSON() (string, error)
 }
 
