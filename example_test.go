@@ -72,3 +72,27 @@ func ExampleContainer_Array() {
 	// Coutinho
 	// Pique
 }
+
+func ExampleContainer_JSON() {
+	jsonVal := `
+    {
+        "captain": {
+            "name":"Messi", 
+            "position":"Forward"
+        }
+    }
+    `
+
+	container, err := chazuke.New(jsonVal)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	j, err := container.Get("captain").JSON()
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Println(j)
+	// Output:
+	// {"name":"Messi","position":"Forward"}
+}
