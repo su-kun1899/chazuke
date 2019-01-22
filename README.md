@@ -1,6 +1,7 @@
 # chazuke
 
 [![CircleCI](https://circleci.com/gh/su-kun1899/chazuke.svg?style=svg)](https://circleci.com/gh/su-kun1899/chazuke)
+[![codecov](https://codecov.io/gh/su-kun1899/chazuke/branch/master/graph/badge.svg)](https://codecov.io/gh/su-kun1899/chazuke)
 [![GoDoc](https://godoc.org/github.com/su-kun1899/chazuke?status.svg)](http://godoc.org/github.com/su-kun1899/chazuke)
 [![Go Report Card](https://goreportcard.com/badge/github.com/su-kun1899/chazuke)](https://goreportcard.com/report/github.com/su-kun1899/chazuke)
 
