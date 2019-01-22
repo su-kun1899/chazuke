@@ -156,7 +156,7 @@ func TestContainer_Array(t *testing.T) {
 		},
 		{
 			name:     "Not array value",
-			arrayKey: "manager",
+			arrayKey: "description",
 			want:     nil,
 			wantErr:  true,
 		},
