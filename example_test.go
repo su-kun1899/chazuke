@@ -5,6 +5,45 @@ import (
 	"github.com/su-kun1899/chazuke"
 )
 
+func ExampleFromJSON() {
+	jsonVal := `
+    {
+        "team": "FC Barcelona",
+        "captain": {
+            "name":"Messi", 
+            "position":"Forward"
+        }
+    }
+    `
+
+	container, err := chazuke.FromJSON(jsonVal)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	team, err := container.Get("team").Value()
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Println(team)
+
+	name, err := container.Get("captain").Get("name").Value()
+	if err != nil {
+		panic(err.Error())
+	}
+	position, err := container.Get("captain").Get("position").Value()
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Println(name)
+	fmt.Println(position)
+
+	// Output:
+	// FC Barcelona
+	// Messi
+	// Forward
+}
+
 func ExampleContainer_Value() {
 	jsonVal := `
     {
