@@ -21,7 +21,7 @@ func main() {
 	}
 	`
 
-	container, _ := chazuke.New(jsonVal)
+	container, _ := chazuke.FromJSON(jsonVal)
 
 	team, _ := container.Get("team").Value()
 	fmt.Println(team) // Should be "FC Barcelona"

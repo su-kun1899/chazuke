@@ -41,7 +41,7 @@ func TestContainer_Value(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			container, err := chazuke.New(jsonVal)
+			container, err := chazuke.FromJSON(jsonVal)
 			if err != nil {
 				t.Fatal("unexpected error:", err)
 			}
@@ -113,7 +113,7 @@ func TestContainer_NestedValue(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			container, err := chazuke.New(jsonVal)
+			container, err := chazuke.FromJSON(jsonVal)
 			if err != nil {
 				t.Fatal("unexpected error:", err)
 			}
@@ -169,7 +169,7 @@ func TestContainer_Array(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			container, err := chazuke.New(jsonVal)
+			container, err := chazuke.FromJSON(jsonVal)
 			if err != nil {
 				t.Fatal("unexpected error:", err)
 			}
@@ -238,7 +238,7 @@ func TestContainer_Array_NestedValue(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			container, err := chazuke.New(jsonVal)
+			container, err := chazuke.FromJSON(jsonVal)
 			if err != nil {
 				t.Fatal("unexpected error:", err)
 			}
@@ -320,7 +320,7 @@ func TestContainer_JSON(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			container, err := chazuke.New(jsonVal)
+			container, err := chazuke.FromJSON(jsonVal)
 			if err != nil {
 				t.Fatal("unexpected error:", err)
 			}
@@ -334,11 +334,11 @@ func TestContainer_JSON(t *testing.T) {
 				return
 			}
 
-			wantV, err := chazuke.New(tt.want)
+			wantV, err := chazuke.FromJSON(tt.want)
 			if err != nil {
 				t.Fatal("unexpected error:", err)
 			}
-			gotV, err := chazuke.New(got)
+			gotV, err := chazuke.FromJSON(got)
 			if err != nil {
 				t.Fatal("unexpected error:", err)
 			}
@@ -350,7 +350,7 @@ func TestContainer_JSON(t *testing.T) {
 	}
 }
 
-func TestNew(t *testing.T) {
+func TestFromJSON(t *testing.T) {
 	type args struct {
 		jsonVal string
 	}
@@ -375,13 +375,13 @@ func TestNew(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := chazuke.New(tt.args.jsonVal)
+			got, err := chazuke.FromJSON(tt.args.jsonVal)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("New() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("FromJSON() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("New() = %v, want %v", got, tt.want)
+				t.Errorf("FromJSON() = %v, want %v", got, tt.want)
 			}
 		})
 	}

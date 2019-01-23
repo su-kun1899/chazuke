@@ -28,7 +28,7 @@ jsonVal := `
 }
 `
 
-container, _ := chazuke.New(jsonVal)
+container, _ := chazuke.FromJSON(jsonVal)
 
 team, _ := container.Get("team").Value()
 fmt.Println(team) // Should be "FC Barcelona"
@@ -50,7 +50,7 @@ jsonVal := `
 }
 `
 
-container, _ := chazuke.New(jsonVal)
+container, _ := chazuke.FromJSON(jsonVal)
 
 players, _ := container.Get("players").Array()
 for _, p := range players {
@@ -71,7 +71,7 @@ jsonVal := `
 }
 `
 
-container, _ := chazuke.New(jsonVal)
+container, _ := chazuke.FromJSON(jsonVal)
 
 j, _ := container.Get("captain").JSON()
 fmt.Println(j) // Should be {"name":"Messi","position":"Forward"}

@@ -88,9 +88,9 @@ func (container *errContainer) JSON() (string, error) {
 	return "", container.err
 }
 
-// New creates a new Container using jsonVal string as its initial contents.
+// FromJSON creates a new Container using jsonVal string as its initial contents.
 // If jsonVal is not JSON format, it returns error.
-func New(jsonVal string) (Container, error) {
+func FromJSON(jsonVal string) (Container, error) {
 	var buf bytes.Buffer
 	buf.Write([]byte(jsonVal))
 	dec := json.NewDecoder(&buf)

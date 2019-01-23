@@ -16,7 +16,7 @@ func ExampleContainer_Value() {
     }
     `
 
-	container, err := chazuke.New(jsonVal)
+	container, err := chazuke.FromJSON(jsonVal)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -49,7 +49,7 @@ func ExampleContainer_Array() {
     }
     `
 
-	container, err := chazuke.New(jsonVal)
+	container, err := chazuke.FromJSON(jsonVal)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -83,7 +83,7 @@ func ExampleContainer_JSON() {
     }
     `
 
-	container, err := chazuke.New(jsonVal)
+	container, err := chazuke.FromJSON(jsonVal)
 	if err != nil {
 		panic(err.Error())
 	}
