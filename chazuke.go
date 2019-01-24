@@ -25,6 +25,9 @@ type Container interface {
 	// JSON takes out contents as JSON format string.
 	// If value has something wrong, it returns error.
 	JSON() (string, error)
+
+	// Has reports whether container's value contains a mapping for the specified key.
+	Has(key string) bool
 }
 
 type jsonContainer struct {
@@ -72,6 +75,11 @@ func (container *jsonContainer) JSON() (string, error) {
 	return string(b), nil
 }
 
+func (container *jsonContainer) Has(key string) bool {
+	_, err := container.Get(key).Value()
+	return err == nil
+}
+
 func (container *errContainer) Get(key string) Container {
 	return container
 }
@@ -86,6 +94,11 @@ func (container *errContainer) Array() ([]Container, error) {
 
 func (container *errContainer) JSON() (string, error) {
 	return "", container.err
+}
+
+func (container *errContainer) Has(key string) bool {
+	// TODO test
+	panic("implement me")
 }
 
 // FromJSON creates a new Container using jsonVal string as its initial contents.
