@@ -37,7 +37,7 @@ birthDay, _ := container.Get("manager").Get("birthDay").Value()
 fmt.Println(birthDay) // Should be "1964-02-09"
 ```
 
-### With Array Value
+### Array Value
 
 ```go
 jsonVal := `
