@@ -97,8 +97,7 @@ func (container *errContainer) JSON() (string, error) {
 }
 
 func (container *errContainer) Has(key string) bool {
-	// TODO test
-	panic("implement me")
+	return false
 }
 
 // FromJSON creates a new Container using jsonVal string as its initial contents.

@@ -433,3 +433,30 @@ func TestContainer_Has(t *testing.T) {
 		})
 	}
 }
+
+func TestErrContainer(t *testing.T) {
+	jsonVal := `
+		{
+			"team": "FC Barcelona",
+			"manager": {
+				"name": "Ernest Valverde",
+				"birthDay": "1964-02-09"
+			},
+			"players":[
+        		{"name":"Messi", "position":"Forward"}, 
+        		{"name":"Coutinho", "position":"Midfielder"},
+        		{"name":"Pique", "position":"Defender"}
+		  	]
+		}
+	`
+
+	container, err := chazuke.FromJSON(jsonVal)
+	if err != nil {
+		t.Fatal("unexpected error:", err)
+	}
+	errContainer := container.Get("foo")
+
+	if got := errContainer.Has("team"); got {
+		t.Errorf("Container.Has() = %v, want %v", got, false)
+	}
+}
