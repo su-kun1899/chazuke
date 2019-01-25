@@ -387,6 +387,45 @@ func TestFromJSON(t *testing.T) {
 	}
 }
 
+func TestFromMap(t *testing.T) {
+	jsonContainer, err := chazuke.FromJSON(`{
+		"team": "FC Barcelona"
+	}`)
+	if err != nil {
+		t.Fatal("unexpected error:", err)
+		return
+	}
+
+	type args struct {
+		m map[string]interface{}
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			name: "Simple Map",
+			args: args{
+				m: map[string]interface{}{"team": "FC Barcelona"},
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := chazuke.FromMap(tt.args.m)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("FromMap() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, jsonContainer) {
+				t.Errorf("FromMap() = %v, want %v", got, jsonContainer)
+			}
+		})
+	}
+}
+
 func TestContainer_Has(t *testing.T) {
 	jsonVal := `
 		{
