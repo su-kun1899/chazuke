@@ -44,6 +44,27 @@ func ExampleFromJSON() {
 	// Forward
 }
 
+func ExampleFromMap() {
+	m := map[string]interface{}{
+		"name":     "Messi",
+		"position": "Forward",
+	}
+
+	container, err := chazuke.FromMap(m)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	j, err := container.JSON()
+	if err != nil {
+		panic(err.Error())
+	}
+
+	fmt.Println(j)
+	// Output:
+	// {"name":"Messi","position":"Forward"}
+}
+
 func ExampleContainer_Value() {
 	jsonVal := `
     {
