@@ -387,6 +387,74 @@ func TestFromJSON(t *testing.T) {
 	}
 }
 
+func TestFromMap(t *testing.T) {
+	jsonContainer, err := chazuke.FromJSON(`{
+		"team": "FC Barcelona",
+		"manager": {
+			"name": "Ernest Valverde",
+			"birthDay": "1964-02-09"
+		},
+		"players":[
+			{"name":"Messi", "position":"Forward"},
+			{"name":"Coutinho", "position":"Midfielder"},
+			{"name":"Pique", "position":"Defender"}
+		]
+	}`)
+	if err != nil {
+		t.Fatal("unexpected error:", err)
+		return
+	}
+
+	type args struct {
+		m map[string]interface{}
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			name: "Simple Map",
+			args: args{
+				m: map[string]interface{}{
+					"team": "FC Barcelona",
+					"manager": map[string]interface{}{
+						"name":     "Ernest Valverde",
+						"birthDay": "1964-02-09",
+					},
+					"players": []interface{}{
+						map[string]interface{}{
+							"name":     "Messi",
+							"position": "Forward",
+						},
+						map[string]interface{}{
+							"name":     "Coutinho",
+							"position": "Midfielder",
+						},
+						map[string]interface{}{
+							"name":     "Pique",
+							"position": "Defender",
+						},
+					},
+				},
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := chazuke.FromMap(tt.args.m)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("FromMap() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, jsonContainer) {
+				t.Errorf("FromMap() = %v, want %v", got, jsonContainer)
+			}
+		})
+	}
+}
+
 func TestContainer_Has(t *testing.T) {
 	jsonVal := `
 		{

@@ -114,3 +114,8 @@ func FromJSON(jsonVal string) (Container, error) {
 
 	return &jsonContainer{values: values}, nil
 }
+
+// FromMap creates a new Container using m map as its initial contents.
+func FromMap(m map[string]interface{}) (Container, error) {
+	return &jsonContainer{values: m}, nil
+}
